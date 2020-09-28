@@ -11,7 +11,7 @@
 
 #ifndef OS_H_
 #define OS_H_
-#include "../OSEK_Examples/Example_1/OsCfg.h"
+#include "OsCfg.h"
 #include "OsTypes.h"
 
 

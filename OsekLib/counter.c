@@ -1,5 +1,5 @@
 #include "counter.h"
-#include "../OSEK_Examples/Example_1/OsCfg.h"
+#include "OsCfg.h"
 #include <stdint.h>
 
 #define NVIC_ST_CTRL_R (*((volatile uint32_t*)0xE000E010))

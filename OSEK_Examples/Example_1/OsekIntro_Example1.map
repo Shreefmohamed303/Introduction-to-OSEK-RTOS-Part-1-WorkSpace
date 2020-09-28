@@ -6,6 +6,8 @@ Section Cross References
 
     osekintro_example1.o(.text) refers to task.o(.text) for StartOS
     osekintro_example1.o(.text) refers to osekintro_example1.o(.data) for TaskA_Counter
+    oscfg.o(.data) refers to osekintro_example1.o(.text) for OsTask_TaskA
+    oscfg.o(.data) refers to task.o(.text) for OsTask_IdleMechanism
     counter.o(.text) refers to oscfg.o(.constdata) for OsCfg_SYSTEM_TICK_IN_MS
     counter.o(.text) refers to counter.o(.data) for OsCnt_SystemCounter
     keiluvisoin_startup.o(RESET) refers to keiluvisoin_startup.o(STACK) for __initial_sp
@@ -15,8 +17,6 @@ Section Cross References
     keiluvisoin_startup.o(RESET) refers to alarm.o(.text) for SystemTimerHandler
     keiluvisoin_startup.o(.text) refers to osekintro_example1.o(.text) for SystemInit
     keiluvisoin_startup.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
-    oscfg.o(.data) refers to osekintro_example1.o(.text) for OsTask_TaskA
-    oscfg.o(.data) refers to task.o(.text) for OsTask_IdleMechanism
     alarm.o(.text) refers to counter.o(.text) for OsCnt_GetSystemCounter
     alarm.o(.text) refers to tcbprocessor.o(.text) for OsTcb_GetTaskStateProcessor
     alarm.o(.text) refers to errmgr.o(.text) for OsErrMgr_SetServiceID
@@ -88,7 +88,6 @@ Image Symbol Table
 
     RESET                                    0x00000000   Section      620  keiluvisoin_startup.o(RESET)
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
@@ -100,11 +99,12 @@ Image Symbol Table
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ..\..\OsekLib\counter.c                  0x00000000   Number         0  counter.o ABSOLUTE
-    ..\..\OsekLib\hook.c                     0x00000000   Number         0  hook.o ABSOLUTE
-    ..\..\OsekLib\startup\keilUvisoin_startup.s 0x00000000   Number         0  keiluvisoin_startup.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     OsCfg.c                                  0x00000000   Number         0  oscfg.o ABSOLUTE
     OsekIntro_Example1.c                     0x00000000   Number         0  osekintro_example1.o ABSOLUTE
+    OsekLib\counter.c                        0x00000000   Number         0  counter.o ABSOLUTE
+    OsekLib\hook.c                           0x00000000   Number         0  hook.o ABSOLUTE
+    OsekLib\startup\keilUvisoin_startup.s    0x00000000   Number         0  keiluvisoin_startup.o ABSOLUTE
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
     handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
     init.s                                   0x00000000   Number         0  init.o ABSOLUTE
@@ -129,8 +129,8 @@ Image Symbol Table
     .text                                    0x00000280   Section        0  osekintro_example1.o(.text)
     SimpleDelay                              0x0000028b   Thumb Code    16  osekintro_example1.o(.text)
     .text                                    0x000002f0   Section        0  counter.o(.text)
-    .text                                    0x00000344   Section      252  keiluvisoin_startup.o(.text)
-    .text                                    0x00000440   Section        0  hook.o(.text)
+    .text                                    0x00000344   Section        0  hook.o(.text)
+    .text                                    0x00000350   Section      252  keiluvisoin_startup.o(.text)
     .text                                    0x0000044c   Section        0  alarm.o(.text)
     OsAlrm_AssignAlarmEntry                  0x000004e9   Thumb Code    38  alarm.o(.text)
     OsAlrm_ValidateStartValue                0x0000050f   Thumb Code    44  alarm.o(.text)
@@ -169,9 +169,9 @@ Image Symbol Table
     i.__scatterload_zeroinit                 0x000016b0   Section       14  handlers.o(i.__scatterload_zeroinit)
     .constdata                               0x000016c0   Section       38  oscfg.o(.constdata)
     .data                                    0x20000000   Section       12  osekintro_example1.o(.data)
-    .data                                    0x2000000c   Section        4  counter.o(.data)
-    OsCnt_SystemCounter                      0x2000000c   Data           4  counter.o(.data)
-    .data                                    0x20000010   Section      118  oscfg.o(.data)
+    .data                                    0x2000000c   Section      118  oscfg.o(.data)
+    .data                                    0x20000084   Section        4  counter.o(.data)
+    OsCnt_SystemCounter                      0x20000084   Data           4  counter.o(.data)
     .data                                    0x20000088   Section       12  errmgr.o(.data)
     OsErrMgr_DetectedService                 0x20000088   Data           1  errmgr.o(.data)
     OsErrMgr_DetectedTaskID                  0x20000089   Data           1  errmgr.o(.data)
@@ -218,129 +218,129 @@ Image Symbol Table
     SysTick_Init                             0x000002f1   Thumb Code    54  counter.o(.text)
     OsCnt_IncrSystemCounter                  0x00000327   Thumb Code    12  counter.o(.text)
     OsCnt_GetSystemCounter                   0x00000333   Thumb Code     6  counter.o(.text)
-    Reset_Handler                            0x00000345   Thumb Code     8  keiluvisoin_startup.o(.text)
-    NMI_Handler                              0x0000034d   Thumb Code     2  keiluvisoin_startup.o(.text)
-    HardFault_Handler                        0x0000034f   Thumb Code     2  keiluvisoin_startup.o(.text)
-    MemManage_Handler                        0x00000351   Thumb Code     2  keiluvisoin_startup.o(.text)
-    BusFault_Handler                         0x00000353   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UsageFault_Handler                       0x00000355   Thumb Code     2  keiluvisoin_startup.o(.text)
-    SVC_Handler                              0x00000357   Thumb Code     2  keiluvisoin_startup.o(.text)
-    DebugMon_Handler                         0x00000359   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PendSV_Handler                           0x0000035b   Thumb Code     2  keiluvisoin_startup.o(.text)
-    SysTick_Handler                          0x0000035d   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOA_Handler                            0x0000035f   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOB_Handler                            0x00000361   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOC_Handler                            0x00000363   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOD_Handler                            0x00000365   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOE_Handler                            0x00000367   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UART0_Handler                            0x00000369   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UART1_Handler                            0x0000036b   Thumb Code     2  keiluvisoin_startup.o(.text)
-    SSI0_Handler                             0x0000036d   Thumb Code     2  keiluvisoin_startup.o(.text)
-    I2C0_Handler                             0x0000036f   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PMW0_FAULT_Handler                       0x00000371   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PWM0_0_Handler                           0x00000373   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PWM0_1_Handler                           0x00000375   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PWM0_2_Handler                           0x00000377   Thumb Code     2  keiluvisoin_startup.o(.text)
-    QEI0_Handler                             0x00000379   Thumb Code     2  keiluvisoin_startup.o(.text)
-    ADC0SS0_Handler                          0x0000037b   Thumb Code     2  keiluvisoin_startup.o(.text)
-    ADC0SS1_Handler                          0x0000037d   Thumb Code     2  keiluvisoin_startup.o(.text)
-    ADC0SS2_Handler                          0x0000037f   Thumb Code     2  keiluvisoin_startup.o(.text)
-    ADC0SS3_Handler                          0x00000381   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WDT0_Handler                             0x00000383   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER0A_Handler                          0x00000385   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER0B_Handler                          0x00000387   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER1A_Handler                          0x00000389   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER1B_Handler                          0x0000038b   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER2A_Handler                          0x0000038d   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER2B_Handler                          0x0000038f   Thumb Code     2  keiluvisoin_startup.o(.text)
-    COMP0_Handler                            0x00000391   Thumb Code     2  keiluvisoin_startup.o(.text)
-    COMP1_Handler                            0x00000393   Thumb Code     2  keiluvisoin_startup.o(.text)
-    COMP2_Handler                            0x00000395   Thumb Code     2  keiluvisoin_startup.o(.text)
-    SYSCTL_Handler                           0x00000397   Thumb Code     2  keiluvisoin_startup.o(.text)
-    FLASH_Handler                            0x00000399   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOF_Handler                            0x0000039b   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOG_Handler                            0x0000039d   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOH_Handler                            0x0000039f   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UART2_Handler                            0x000003a1   Thumb Code     2  keiluvisoin_startup.o(.text)
-    SSI1_Handler                             0x000003a3   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER3A_Handler                          0x000003a5   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER3B_Handler                          0x000003a7   Thumb Code     2  keiluvisoin_startup.o(.text)
-    I2C1_Handler                             0x000003a9   Thumb Code     2  keiluvisoin_startup.o(.text)
-    QEI1_Handler                             0x000003ab   Thumb Code     2  keiluvisoin_startup.o(.text)
-    CAN0_Handler                             0x000003ad   Thumb Code     2  keiluvisoin_startup.o(.text)
-    CAN1_Handler                             0x000003af   Thumb Code     2  keiluvisoin_startup.o(.text)
-    CAN2_Handler                             0x000003b1   Thumb Code     2  keiluvisoin_startup.o(.text)
-    HIB_Handler                              0x000003b3   Thumb Code     2  keiluvisoin_startup.o(.text)
-    USB0_Handler                             0x000003b5   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PWM0_3_Handler                           0x000003b7   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UDMA_Handler                             0x000003b9   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UDMAERR_Handler                          0x000003bb   Thumb Code     2  keiluvisoin_startup.o(.text)
-    ADC1SS0_Handler                          0x000003bd   Thumb Code     2  keiluvisoin_startup.o(.text)
-    ADC1SS1_Handler                          0x000003bf   Thumb Code     2  keiluvisoin_startup.o(.text)
-    ADC1SS2_Handler                          0x000003c1   Thumb Code     2  keiluvisoin_startup.o(.text)
-    ADC1SS3_Handler                          0x000003c3   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOJ_Handler                            0x000003c5   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOK_Handler                            0x000003c7   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOL_Handler                            0x000003c9   Thumb Code     2  keiluvisoin_startup.o(.text)
-    SSI2_Handler                             0x000003cb   Thumb Code     2  keiluvisoin_startup.o(.text)
-    SSI3_Handler                             0x000003cd   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UART3_Handler                            0x000003cf   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UART4_Handler                            0x000003d1   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UART5_Handler                            0x000003d3   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UART6_Handler                            0x000003d5   Thumb Code     2  keiluvisoin_startup.o(.text)
-    UART7_Handler                            0x000003d7   Thumb Code     2  keiluvisoin_startup.o(.text)
-    I2C2_Handler                             0x000003d9   Thumb Code     2  keiluvisoin_startup.o(.text)
-    I2C3_Handler                             0x000003db   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER4A_Handler                          0x000003dd   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER4B_Handler                          0x000003df   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER5A_Handler                          0x000003e1   Thumb Code     2  keiluvisoin_startup.o(.text)
-    TIMER5B_Handler                          0x000003e3   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER0A_Handler                         0x000003e5   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER0B_Handler                         0x000003e7   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER1A_Handler                         0x000003e9   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER1B_Handler                         0x000003eb   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER2A_Handler                         0x000003ed   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER2B_Handler                         0x000003ef   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER3A_Handler                         0x000003f1   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER3B_Handler                         0x000003f3   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER4A_Handler                         0x000003f5   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER4B_Handler                         0x000003f7   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER5A_Handler                         0x000003f9   Thumb Code     2  keiluvisoin_startup.o(.text)
-    WTIMER5B_Handler                         0x000003fb   Thumb Code     2  keiluvisoin_startup.o(.text)
-    FPU_Handler                              0x000003fd   Thumb Code     2  keiluvisoin_startup.o(.text)
-    I2C4_Handler                             0x000003ff   Thumb Code     2  keiluvisoin_startup.o(.text)
-    I2C5_Handler                             0x00000401   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOM_Handler                            0x00000403   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPION_Handler                            0x00000405   Thumb Code     2  keiluvisoin_startup.o(.text)
-    QEI2_Handler                             0x00000407   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOP0_Handler                           0x00000409   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOP1_Handler                           0x0000040b   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOP2_Handler                           0x0000040d   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOP3_Handler                           0x0000040f   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOP4_Handler                           0x00000411   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOP5_Handler                           0x00000413   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOP6_Handler                           0x00000415   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOP7_Handler                           0x00000417   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOQ0_Handler                           0x00000419   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOQ1_Handler                           0x0000041b   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOQ2_Handler                           0x0000041d   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOQ3_Handler                           0x0000041f   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOQ4_Handler                           0x00000421   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOQ5_Handler                           0x00000423   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOQ6_Handler                           0x00000425   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOQ7_Handler                           0x00000427   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOR_Handler                            0x00000429   Thumb Code     2  keiluvisoin_startup.o(.text)
-    GPIOS_Handler                            0x0000042b   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PMW1_0_Handler                           0x0000042d   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PWM1_1_Handler                           0x0000042f   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PWM1_2_Handler                           0x00000431   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PWM1_3_Handler                           0x00000433   Thumb Code     2  keiluvisoin_startup.o(.text)
-    PWM1_FAULT_Handler                       0x00000435   Thumb Code     2  keiluvisoin_startup.o(.text)
-    ErrorHook                                0x00000441   Thumb Code     2  hook.o(.text)
-    StartupHook                              0x00000443   Thumb Code     2  hook.o(.text)
-    PreTaskHook                              0x00000445   Thumb Code     2  hook.o(.text)
-    PostTaskHook                             0x00000447   Thumb Code     2  hook.o(.text)
-    StackOverFlowHook                        0x00000449   Thumb Code     2  hook.o(.text)
+    ErrorHook                                0x00000345   Thumb Code     2  hook.o(.text)
+    StartupHook                              0x00000347   Thumb Code     2  hook.o(.text)
+    PreTaskHook                              0x00000349   Thumb Code     2  hook.o(.text)
+    PostTaskHook                             0x0000034b   Thumb Code     2  hook.o(.text)
+    StackOverFlowHook                        0x0000034d   Thumb Code     2  hook.o(.text)
+    Reset_Handler                            0x00000351   Thumb Code     8  keiluvisoin_startup.o(.text)
+    NMI_Handler                              0x00000359   Thumb Code     2  keiluvisoin_startup.o(.text)
+    HardFault_Handler                        0x0000035b   Thumb Code     2  keiluvisoin_startup.o(.text)
+    MemManage_Handler                        0x0000035d   Thumb Code     2  keiluvisoin_startup.o(.text)
+    BusFault_Handler                         0x0000035f   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UsageFault_Handler                       0x00000361   Thumb Code     2  keiluvisoin_startup.o(.text)
+    SVC_Handler                              0x00000363   Thumb Code     2  keiluvisoin_startup.o(.text)
+    DebugMon_Handler                         0x00000365   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PendSV_Handler                           0x00000367   Thumb Code     2  keiluvisoin_startup.o(.text)
+    SysTick_Handler                          0x00000369   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOA_Handler                            0x0000036b   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOB_Handler                            0x0000036d   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOC_Handler                            0x0000036f   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOD_Handler                            0x00000371   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOE_Handler                            0x00000373   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UART0_Handler                            0x00000375   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UART1_Handler                            0x00000377   Thumb Code     2  keiluvisoin_startup.o(.text)
+    SSI0_Handler                             0x00000379   Thumb Code     2  keiluvisoin_startup.o(.text)
+    I2C0_Handler                             0x0000037b   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PMW0_FAULT_Handler                       0x0000037d   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PWM0_0_Handler                           0x0000037f   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PWM0_1_Handler                           0x00000381   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PWM0_2_Handler                           0x00000383   Thumb Code     2  keiluvisoin_startup.o(.text)
+    QEI0_Handler                             0x00000385   Thumb Code     2  keiluvisoin_startup.o(.text)
+    ADC0SS0_Handler                          0x00000387   Thumb Code     2  keiluvisoin_startup.o(.text)
+    ADC0SS1_Handler                          0x00000389   Thumb Code     2  keiluvisoin_startup.o(.text)
+    ADC0SS2_Handler                          0x0000038b   Thumb Code     2  keiluvisoin_startup.o(.text)
+    ADC0SS3_Handler                          0x0000038d   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WDT0_Handler                             0x0000038f   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER0A_Handler                          0x00000391   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER0B_Handler                          0x00000393   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER1A_Handler                          0x00000395   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER1B_Handler                          0x00000397   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER2A_Handler                          0x00000399   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER2B_Handler                          0x0000039b   Thumb Code     2  keiluvisoin_startup.o(.text)
+    COMP0_Handler                            0x0000039d   Thumb Code     2  keiluvisoin_startup.o(.text)
+    COMP1_Handler                            0x0000039f   Thumb Code     2  keiluvisoin_startup.o(.text)
+    COMP2_Handler                            0x000003a1   Thumb Code     2  keiluvisoin_startup.o(.text)
+    SYSCTL_Handler                           0x000003a3   Thumb Code     2  keiluvisoin_startup.o(.text)
+    FLASH_Handler                            0x000003a5   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOF_Handler                            0x000003a7   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOG_Handler                            0x000003a9   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOH_Handler                            0x000003ab   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UART2_Handler                            0x000003ad   Thumb Code     2  keiluvisoin_startup.o(.text)
+    SSI1_Handler                             0x000003af   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER3A_Handler                          0x000003b1   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER3B_Handler                          0x000003b3   Thumb Code     2  keiluvisoin_startup.o(.text)
+    I2C1_Handler                             0x000003b5   Thumb Code     2  keiluvisoin_startup.o(.text)
+    QEI1_Handler                             0x000003b7   Thumb Code     2  keiluvisoin_startup.o(.text)
+    CAN0_Handler                             0x000003b9   Thumb Code     2  keiluvisoin_startup.o(.text)
+    CAN1_Handler                             0x000003bb   Thumb Code     2  keiluvisoin_startup.o(.text)
+    CAN2_Handler                             0x000003bd   Thumb Code     2  keiluvisoin_startup.o(.text)
+    HIB_Handler                              0x000003bf   Thumb Code     2  keiluvisoin_startup.o(.text)
+    USB0_Handler                             0x000003c1   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PWM0_3_Handler                           0x000003c3   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UDMA_Handler                             0x000003c5   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UDMAERR_Handler                          0x000003c7   Thumb Code     2  keiluvisoin_startup.o(.text)
+    ADC1SS0_Handler                          0x000003c9   Thumb Code     2  keiluvisoin_startup.o(.text)
+    ADC1SS1_Handler                          0x000003cb   Thumb Code     2  keiluvisoin_startup.o(.text)
+    ADC1SS2_Handler                          0x000003cd   Thumb Code     2  keiluvisoin_startup.o(.text)
+    ADC1SS3_Handler                          0x000003cf   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOJ_Handler                            0x000003d1   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOK_Handler                            0x000003d3   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOL_Handler                            0x000003d5   Thumb Code     2  keiluvisoin_startup.o(.text)
+    SSI2_Handler                             0x000003d7   Thumb Code     2  keiluvisoin_startup.o(.text)
+    SSI3_Handler                             0x000003d9   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UART3_Handler                            0x000003db   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UART4_Handler                            0x000003dd   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UART5_Handler                            0x000003df   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UART6_Handler                            0x000003e1   Thumb Code     2  keiluvisoin_startup.o(.text)
+    UART7_Handler                            0x000003e3   Thumb Code     2  keiluvisoin_startup.o(.text)
+    I2C2_Handler                             0x000003e5   Thumb Code     2  keiluvisoin_startup.o(.text)
+    I2C3_Handler                             0x000003e7   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER4A_Handler                          0x000003e9   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER4B_Handler                          0x000003eb   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER5A_Handler                          0x000003ed   Thumb Code     2  keiluvisoin_startup.o(.text)
+    TIMER5B_Handler                          0x000003ef   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER0A_Handler                         0x000003f1   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER0B_Handler                         0x000003f3   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER1A_Handler                         0x000003f5   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER1B_Handler                         0x000003f7   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER2A_Handler                         0x000003f9   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER2B_Handler                         0x000003fb   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER3A_Handler                         0x000003fd   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER3B_Handler                         0x000003ff   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER4A_Handler                         0x00000401   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER4B_Handler                         0x00000403   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER5A_Handler                         0x00000405   Thumb Code     2  keiluvisoin_startup.o(.text)
+    WTIMER5B_Handler                         0x00000407   Thumb Code     2  keiluvisoin_startup.o(.text)
+    FPU_Handler                              0x00000409   Thumb Code     2  keiluvisoin_startup.o(.text)
+    I2C4_Handler                             0x0000040b   Thumb Code     2  keiluvisoin_startup.o(.text)
+    I2C5_Handler                             0x0000040d   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOM_Handler                            0x0000040f   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPION_Handler                            0x00000411   Thumb Code     2  keiluvisoin_startup.o(.text)
+    QEI2_Handler                             0x00000413   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOP0_Handler                           0x00000415   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOP1_Handler                           0x00000417   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOP2_Handler                           0x00000419   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOP3_Handler                           0x0000041b   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOP4_Handler                           0x0000041d   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOP5_Handler                           0x0000041f   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOP6_Handler                           0x00000421   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOP7_Handler                           0x00000423   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOQ0_Handler                           0x00000425   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOQ1_Handler                           0x00000427   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOQ2_Handler                           0x00000429   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOQ3_Handler                           0x0000042b   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOQ4_Handler                           0x0000042d   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOQ5_Handler                           0x0000042f   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOQ6_Handler                           0x00000431   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOQ7_Handler                           0x00000433   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOR_Handler                            0x00000435   Thumb Code     2  keiluvisoin_startup.o(.text)
+    GPIOS_Handler                            0x00000437   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PMW1_0_Handler                           0x00000439   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PWM1_1_Handler                           0x0000043b   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PWM1_2_Handler                           0x0000043d   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PWM1_3_Handler                           0x0000043f   Thumb Code     2  keiluvisoin_startup.o(.text)
+    PWM1_FAULT_Handler                       0x00000441   Thumb Code     2  keiluvisoin_startup.o(.text)
     DeclareAlarm                             0x0000044d   Thumb Code     2  alarm.o(.text)
     GetAlarmBase                             0x0000044f   Thumb Code    74  alarm.o(.text)
     GetAlarm                                 0x00000499   Thumb Code    80  alarm.o(.text)
@@ -441,10 +441,10 @@ Image Symbol Table
     TaskA_Counter                            0x20000000   Data           4  osekintro_example1.o(.data)
     TaskB_Counter                            0x20000004   Data           4  osekintro_example1.o(.data)
     TaskC_Counter                            0x20000008   Data           4  osekintro_example1.o(.data)
-    OsCfg_TCBs                               0x20000010   Data         112  oscfg.o(.data)
-    SVCCnxt_ErrCodes                         0x20000080   Data           3  oscfg.o(.data)
-    SVCCnxt_ResMgrCnxt                       0x20000083   Data           1  oscfg.o(.data)
-    RCB                                      0x20000084   Data           2  oscfg.o(.data)
+    OsCfg_TCBs                               0x2000000c   Data         112  oscfg.o(.data)
+    SVCCnxt_ErrCodes                         0x2000007c   Data           3  oscfg.o(.data)
+    SVCCnxt_ResMgrCnxt                       0x2000007f   Data           1  oscfg.o(.data)
+    RCB                                      0x20000080   Data           2  oscfg.o(.data)
     Current_TCB_Ref                          0x20000098   Data           4  tcbprocessor.o(.data)
     OsCfg_Stack                              0x200000a0   Data         664  oscfg.o(.bss)
     OsCfg_Alarms                             0x20000338   Data          24  oscfg.o(.bss)
@@ -456,7 +456,7 @@ Image Symbol Table
 
 Memory Map of the image
 
-  Image Entry point : 0x00000345
+  Image Entry point : 0x00000351
 
   Load Region LR_1 (Base: 0x00000000, Size: 0x000017a8, Max: 0xffffffff, ABSOLUTE)
 
@@ -464,38 +464,38 @@ Memory Map of the image
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x0000026c   Data   RO           53    RESET               keiluvisoin_startup.o
-    0x0000026c   0x0000026c   0x00000000   Code   RO          226  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x0000026c   0x0000026c   0x00000004   Code   RO          229    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x00000270   0x00000270   0x00000004   Code   RO          232    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x00000274   0x00000274   0x00000000   Code   RO          234    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x00000274   0x00000274   0x00000000   Code   RO          236    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x00000274   0x00000274   0x00000008   Code   RO          237    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x0000027c   0x0000027c   0x00000000   Code   RO          239    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x0000027c   0x0000027c   0x00000000   Code   RO          241    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x0000027c   0x0000027c   0x00000004   Code   RO          230    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x00000000   0x00000000   0x0000026c   Data   RO           86    RESET               keiluvisoin_startup.o
+    0x0000026c   0x0000026c   0x00000000   Code   RO          233  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x0000026c   0x0000026c   0x00000004   Code   RO          236    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x00000270   0x00000270   0x00000004   Code   RO          239    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00000274   0x00000274   0x00000000   Code   RO          241    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00000274   0x00000274   0x00000000   Code   RO          243    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00000274   0x00000274   0x00000008   Code   RO          244    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x0000027c   0x0000027c   0x00000000   Code   RO          246    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x0000027c   0x0000027c   0x00000000   Code   RO          248    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x0000027c   0x0000027c   0x00000004   Code   RO          237    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x00000280   0x00000280   0x00000070   Code   RO            1    .text               osekintro_example1.o
-    0x000002f0   0x000002f0   0x00000054   Code   RO           34    .text               counter.o
-    0x00000344   0x00000344   0x000000fc   Code   RO           54  * .text               keiluvisoin_startup.o
-    0x00000440   0x00000440   0x0000000a   Code   RO           59    .text               hook.o
-    0x0000044a   0x0000044a   0x00000002   PAD
-    0x0000044c   0x0000044c   0x000003e0   Code   RO           85    .text               OsekLib.lib(alarm.o)
-    0x0000082c   0x0000082c   0x00000168   Code   RO          123    .text               OsekLib.lib(task.o)
-    0x00000994   0x00000994   0x0000005a   Code   RO          153    .text               OsekLib.lib(port.o)
+    0x000002f0   0x000002f0   0x00000054   Code   RO           48    .text               counter.o
+    0x00000344   0x00000344   0x0000000a   Code   RO           69    .text               hook.o
+    0x0000034e   0x0000034e   0x00000002   PAD
+    0x00000350   0x00000350   0x000000fc   Code   RO           87  * .text               keiluvisoin_startup.o
+    0x0000044c   0x0000044c   0x000003e0   Code   RO           92    .text               OsekLib.lib(alarm.o)
+    0x0000082c   0x0000082c   0x00000168   Code   RO          130    .text               OsekLib.lib(task.o)
+    0x00000994   0x00000994   0x0000005a   Code   RO          160    .text               OsekLib.lib(port.o)
     0x000009ee   0x000009ee   0x00000002   PAD
-    0x000009f0   0x000009f0   0x0000005c   Code   RO          156    .text               OsekLib.lib(errmgr.o)
-    0x00000a4c   0x00000a4c   0x0000011c   Code   RO          170    .text               OsekLib.lib(rcbprocessor.o)
-    0x00000b68   0x00000b68   0x00000058   Code   RO          182    .text               OsekLib.lib(svccontext.o)
-    0x00000bc0   0x00000bc0   0x00000a38   Code   RO          196    .text               OsekLib.lib(tcbprocessor.o)
-    0x000015f8   0x000015f8   0x00000084   Code   RO          211    .text               OsekLib.lib(portable.o)
-    0x0000167c   0x0000167c   0x00000024   Code   RO          243    .text               mc_w.l(init.o)
-    0x000016a0   0x000016a0   0x0000000e   Code   RO          247    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x000016ae   0x000016ae   0x00000002   Code   RO          248    i.__scatterload_null  mc_w.l(handlers.o)
-    0x000016b0   0x000016b0   0x0000000e   Code   RO          249    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x000009f0   0x000009f0   0x0000005c   Code   RO          163    .text               OsekLib.lib(errmgr.o)
+    0x00000a4c   0x00000a4c   0x0000011c   Code   RO          177    .text               OsekLib.lib(rcbprocessor.o)
+    0x00000b68   0x00000b68   0x00000058   Code   RO          189    .text               OsekLib.lib(svccontext.o)
+    0x00000bc0   0x00000bc0   0x00000a38   Code   RO          203    .text               OsekLib.lib(tcbprocessor.o)
+    0x000015f8   0x000015f8   0x00000084   Code   RO          218    .text               OsekLib.lib(portable.o)
+    0x0000167c   0x0000167c   0x00000024   Code   RO          250    .text               mc_w.l(init.o)
+    0x000016a0   0x000016a0   0x0000000e   Code   RO          254    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x000016ae   0x000016ae   0x00000002   Code   RO          255    i.__scatterload_null  mc_w.l(handlers.o)
+    0x000016b0   0x000016b0   0x0000000e   Code   RO          256    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x000016be   0x000016be   0x00000002   PAD
-    0x000016c0   0x000016c0   0x00000026   Data   RO           72    .constdata          oscfg.o
+    0x000016c0   0x000016c0   0x00000026   Data   RO           35    .constdata          oscfg.o
     0x000016e6   0x000016e6   0x00000002   PAD
-    0x000016e8   0x000016e8   0x00000020   Data   RO          245    Region$$Table       anon$$obj.o
+    0x000016e8   0x000016e8   0x00000020   Data   RO          252    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00001708, Size: 0x000000a0, Max: 0xffffffff, ABSOLUTE)
@@ -503,21 +503,21 @@ Memory Map of the image
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20000000   0x00001708   0x0000000c   Data   RW            2    .data               osekintro_example1.o
-    0x2000000c   0x00001714   0x00000004   Data   RW           35    .data               counter.o
-    0x20000010   0x00001718   0x00000076   Data   RW           73    .data               oscfg.o
-    0x20000086   0x0000178e   0x00000002   PAD
-    0x20000088   0x00001790   0x0000000c   Data   RW          157    .data               OsekLib.lib(errmgr.o)
-    0x20000094   0x0000179c   0x00000003   Data   RW          183    .data               OsekLib.lib(svccontext.o)
+    0x2000000c   0x00001714   0x00000076   Data   RW           36    .data               oscfg.o
+    0x20000082   0x0000178a   0x00000002   PAD
+    0x20000084   0x0000178c   0x00000004   Data   RW           49    .data               counter.o
+    0x20000088   0x00001790   0x0000000c   Data   RW          164    .data               OsekLib.lib(errmgr.o)
+    0x20000094   0x0000179c   0x00000003   Data   RW          190    .data               OsekLib.lib(svccontext.o)
     0x20000097   0x0000179f   0x00000001   PAD
-    0x20000098   0x000017a0   0x00000006   Data   RW          197    .data               OsekLib.lib(tcbprocessor.o)
+    0x20000098   0x000017a0   0x00000006   Data   RW          204    .data               OsekLib.lib(tcbprocessor.o)
 
 
     Execution Region ER_ZI (Exec base: 0x200000a0, Load base: 0x000017a8, Size: 0x000004b0, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x200000a0        -       0x000002b0   Zero   RW           71    .bss                oscfg.o
-    0x20000350        -       0x00000200   Zero   RW           51    STACK               keiluvisoin_startup.o
+    0x200000a0        -       0x000002b0   Zero   RW           34    .bss                oscfg.o
+    0x20000350        -       0x00000200   Zero   RW           84    STACK               keiluvisoin_startup.o
 
 
 ==============================================================================
@@ -527,14 +527,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        84         12          0          4          0       1126   counter.o
-        10          0          0          0          0        947   hook.o
-       252         10        620          0        512       5516   keiluvisoin_startup.o
+        84         12          0          4          0       1106   counter.o
+        10          0          0          0          0       3351   hook.o
+       252         10        620          0        512       5500   keiluvisoin_startup.o
          0          0         38        118        688       2013   oscfg.o
        112         12          0         12          0       8469   osekintro_example1.o
 
     ----------------------------------------------------------------------
-       460         34        692        136       1200      18071   Object Totals
+       460         34        692        136       1200      20439   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          2          0          2          2          0          0   (incl. Padding)
 
@@ -582,8 +582,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5204        270        692        160       1200      48956   Grand Totals
-      5204        270        692        160       1200      48956   ELF Image Totals
+      5204        270        692        160       1200      51324   Grand Totals
+      5204        270        692        160       1200      51324   ELF Image Totals
       5204        270        692        160          0          0   ROM Totals
 
 ==============================================================================

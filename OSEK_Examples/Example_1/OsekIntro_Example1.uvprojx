@@ -388,41 +388,6 @@
               <FilePath>.\OsekIntro_Example1.c</FilePath>
             </File>
             <File>
-              <FileName>counter.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\OsekLib\counter.c</FilePath>
-            </File>
-            <File>
-              <FileName>counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\OsekLib\counter.h</FilePath>
-            </File>
-            <File>
-              <FileName>os.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\OsekLib\os.h</FilePath>
-            </File>
-            <File>
-              <FileName>OsTypes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\OsekLib\OsTypes.h</FilePath>
-            </File>
-            <File>
-              <FileName>keilUvisoin_startup.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\..\OsekLib\startup\keilUvisoin_startup.s</FilePath>
-            </File>
-            <File>
-              <FileName>hook.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\OsekLib\hook.c</FilePath>
-            </File>
-            <File>
-              <FileName>OsekLib.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\OsekLib\OsekLib.lib</FilePath>
-            </File>
-            <File>
               <FileName>OsCfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\OsCfg.h</FilePath>
@@ -431,6 +396,41 @@
               <FileName>OsCfg.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\OsCfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>OsekLib.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>.\OsekLib\OsekLib.lib</FilePath>
+            </File>
+            <File>
+              <FileName>counter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\OsekLib\counter.c</FilePath>
+            </File>
+            <File>
+              <FileName>hook.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\OsekLib\hook.c</FilePath>
+            </File>
+            <File>
+              <FileName>counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\OsekLib\counter.h</FilePath>
+            </File>
+            <File>
+              <FileName>os.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\OsekLib\os.h</FilePath>
+            </File>
+            <File>
+              <FileName>OsTypes.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\OsekLib\OsTypes.h</FilePath>
+            </File>
+            <File>
+              <FileName>keilUvisoin_startup.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\OsekLib\startup\keilUvisoin_startup.s</FilePath>
             </File>
           </Files>
         </Group>

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\build_files\OsekIntro_Example1.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\build_files\OsekIntro_Example1.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Sep 28 16:25:21 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Sep 28 19:03:28 2020
 <BR><P>
 <H3>Maximum Stack Usage =         72 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -345,6 +345,40 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetRelAlarm
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetAlarm
 <LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemTimerHandler
+</UL>
+
+<P><STRONG><a name="[99]"></a>ErrorHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_GetEventProcessor
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_WaitEventProcessor
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_TerminateTaskTCBProcessor
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_SetEventProcessor
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ScheduleProcessor
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ClearEventProcessor
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ChainTaskTCBProcessor
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ActivateTaskTCBProcesor
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsRes_GetResourceProcessor
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsRcb_ReleaseResourceProcessor
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_GetTaskStateProcessor
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsAlrm_AlarmActionExecute
+</UL>
+
+<P><STRONG><a name="[a2]"></a>StartupHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartOS
+</UL>
+
+<P><STRONG><a name="[d6]"></a>PreTaskHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_JumpToNextTCB
+</UL>
+
+<P><STRONG><a name="[d4]"></a>PostTaskHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_WaitEventProcessor
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_TerminateTaskTCBProcessor
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_JumpToNextTCB
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ChainTaskTCBProcessor
+</UL>
+
+<P><STRONG><a name="[af]"></a>StackOverFlowHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Dispatcher
 </UL>
 
 <P><STRONG><a name="[7d]"></a>Reset_Handler</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, keiluvisoin_startup.o(.text))
@@ -1165,40 +1199,6 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> keiluvisoin_startup.o(RESET)
 </UL>
-<P><STRONG><a name="[99]"></a>ErrorHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_GetEventProcessor
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_WaitEventProcessor
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_TerminateTaskTCBProcessor
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_SetEventProcessor
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ScheduleProcessor
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ClearEventProcessor
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ChainTaskTCBProcessor
-<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ActivateTaskTCBProcesor
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsRes_GetResourceProcessor
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsRcb_ReleaseResourceProcessor
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_GetTaskStateProcessor
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsAlrm_AlarmActionExecute
-</UL>
-
-<P><STRONG><a name="[a2]"></a>StartupHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartOS
-</UL>
-
-<P><STRONG><a name="[d6]"></a>PreTaskHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_JumpToNextTCB
-</UL>
-
-<P><STRONG><a name="[d4]"></a>PostTaskHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_WaitEventProcessor
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_TerminateTaskTCBProcessor
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_JumpToNextTCB
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OsTcb_ChainTaskTCBProcessor
-</UL>
-
-<P><STRONG><a name="[af]"></a>StackOverFlowHook</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hook.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Dispatcher
-</UL>
-
 <P><STRONG><a name="[e8]"></a>DeclareAlarm</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, alarm.o(.text), UNUSED)
 
 <P><STRONG><a name="[87]"></a>GetAlarmBase</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, alarm.o(.text), UNUSED)
