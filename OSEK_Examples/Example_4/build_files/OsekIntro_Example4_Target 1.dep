@@ -1,0 +1,29 @@
+Dependencies for Project 'OsekIntro_Example4', Target 'Target 1': (DO NOT MODIFY !)
+CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
+F (.\OsekIntro_Example4.c)(0x5F75C2F6)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I ..\..\oil -I ..\..\OsekLib-I.\RTE\_Target_1-IC:\Users\LENOVO\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\LENOVO\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\build_files\osekintro_example4.o --omf_browse .\build_files\osekintro_example4.crf --depend .\build_files\osekintro_example4.d)
+I (..\..\OsekLib\os.h)(0x5F74A6F2)
+I (.\RTE\_Target_1\../../OsCfg.h)(0x5F75C283)
+I (..\..\OsekLib\OsTypes.h)(0x5F709882)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+F (.\OsCfg.c)(0x5F75C283)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I ..\..\oil -I ..\..\OsekLib-I.\RTE\_Target_1-IC:\Users\LENOVO\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\LENOVO\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\build_files\oscfg.o --omf_browse .\build_files\oscfg.crf --depend .\build_files\oscfg.d)
+I (OsCfg.h)(0x5F75C283)
+I (..\..\OsekLib\OsTypes.h)(0x5F709882)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+F (.\OsekLib\counter.c)(0x5F721576)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I ..\..\oil -I ..\..\OsekLib-I.\RTE\_Target_1-IC:\Users\LENOVO\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\LENOVO\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\build_files\counter.o --omf_browse .\build_files\counter.crf --depend .\build_files\counter.d)
+I (OsekLib\counter.h)(0x5F709882)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (OsekLib\../OsCfg.h)(0x5F75C283)
+I (..\..\OsekLib\OsTypes.h)(0x5F709882)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+F (.\OsekLib\hook.c)(0x5F709882)(-c --cpu Cortex-M4.fp.sp -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I ..\..\oil -I ..\..\OsekLib-I.\RTE\_Target_1-IC:\Users\LENOVO\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\LENOVO\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="529" -D_RTE_ -DTM4C123GH6PM-o .\build_files\hook.o --omf_browse .\build_files\hook.crf --depend .\build_files\hook.d)
+I (OsekLib\OsTypes.h)(0x5F709882)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+F (.\OsekLib\startup\keilUvisoin_startup.s)(0x5F709882)(--cpu Cortex-M4.fp.sp --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_Target_1-IC:\Users\LENOVO\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\LENOVO\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "TM4C123GH6PM SETA 1"--list .\keiluvisoin_startup.lst --xref -o .\build_files\keiluvisoin_startup.o --depend .\build_files\keiluvisoin_startup.d)
+F (.\OsekLib\OsekLib.lib)(0x5F709882)()
+F (.\OsekLib\counter.h)(0x5F709882)()
+F (.\OsekLib\os.h)(0x5F72167D)()
+F (.\OsekLib\OsTypes.h)(0x5F709882)()
+F (.\OsCfg.h)(0x5F75C283)()

@@ -1,8 +1,8 @@
 /*******************************************************************************
-	Module Name:		OsCfg.c
-	Generation Date:	2020-September-Monday	18:48:04
+	Module Name:		OsCfg.h
+	Generation Date:	2020-October-Thursday	13:50:27
 	Tool Version: 		V.0
-	Description: 		Os configuration src file
+	Description: 		Os configuration header file
 
 
 	All Rights Reserved - Sarea Alhariri
@@ -12,99 +12,103 @@
 /*******************AUTO GENERATED FILE PLEASE DO NOT TOUCH********************/
 /******************************************************************************/
 
-#include "OsCfg.h"
-
-#define		INVALID_ID		0xFFU
-#define		NULL		(void *)0
-
-/*******************************************************************************
-	Num of app tasks
-*******************************************************************************/
-const uint8_t OsCfg_MAX_NUM_OF_TASKS = 	3U;
+#ifndef OS_CFG_H_
+#define OS_CFG_H_
+ 
+#include "OsTypes.h"
 
 /*******************************************************************************
-	Num of system alarms
+	Extern number of App Tasks
 *******************************************************************************/
-const uint8_t OsCfg_MAX_NUM_OF_ALARMS = 0U;
+extern const uint8_t OsCfg_MAX_NUM_OF_TASKS;
 /*******************************************************************************
-	Num of system resources
+	Define the number of alarms
 *******************************************************************************/
-const uint8_t OsCfg_MAX_NUM_OF_RESOURCES = 0U;
+extern const uint8_t OsCfg_MAX_NUM_OF_ALARMS;
 /*******************************************************************************
-	App task externs
+	Define the number of resources
 *******************************************************************************/
-const uint16_t OsCfg_ALL_STACK_SIZE = 150;
+extern const uint8_t OsCfg_MAX_NUM_OF_RESOURCES; 
+/*******************************************************************************
+	OsCfg_ALL_STACK_SIZE
+*******************************************************************************/
+extern const uint16_t OsCfg_ALL_STACK_SIZE;
 /*******************************************************************************
 	Hook routines configurations
 *******************************************************************************/
-const uint8_t OsCfg_USE_ERROR_HOOK = 0U;
-const uint8_t OsCfg_USE_PRETASK_HOOK = 0U;
-const uint8_t OsCfg_USE_POSTTASK_HOOK = 0U;
-const uint8_t OsCfg_USE_STARTUP_HOOK = 0U;
-const uint8_t OsCfg_USE_STACK_OVER_FLOW_HOOK = 0U;
+extern const uint8_t OsCfg_USE_ERROR_HOOK;
+extern const uint8_t OsCfg_USE_PRETASK_HOOK;
+extern const uint8_t OsCfg_USE_POSTTASK_HOOK;
+extern const uint8_t OsCfg_USE_STARTUP_HOOK;
+extern const uint8_t OsCfg_USE_STACK_OVER_FLOW_HOOK;
 
 
-const uint8_t OsCfg_USE_PARAMETER_ACCESS = 0U;
-const uint8_t OsCfg_USE_GET_SERVICE_ID = 0U;
-const uint32_t OsCfg_SYSTEM_TICK_IN_MS = 10U;
-const uint32_t OSTICKDURATION = 10000U;
+extern const uint8_t OsCfg_USE_PARAMETER_ACCESS;
+extern const uint8_t OsCfg_USE_GET_SERVICE_ID;
+extern const uint32_t OsCfg_SYSTEM_TICK_IN_MS;
+extern const uint32_t OSTICKDURATION;
 /*******************************************************************************
-	Task contol block table
+	System task functions prototypes
 *******************************************************************************/
-tcb_t OsCfg_TCBs[3/*num of app tasks*/+1/*for Idle mechanism */] = 
+extern void OsTask_TaskA(void); 
+extern void OsTask_TaskB(void); 
+extern void OsTask_TaskC(void); 
+extern void OsTask_IdleMechanism(void); 
+/*******************************************************************************
+	Task Identifiers
+*******************************************************************************/
+enum OsCfg_TaskIDs
 {
-	{/*SP*/0u, /*basic SP*/0u , /*task pointer*/OsTask_TaskA_NonPreemptive, 
-	/*task state*/READY, /*DeadBeefLoc*/NULL, /*priority*/10, /*task model*/BASIC,
-	/*set events*/0u, /*wait events*/0u, /*res occupation*/0u, 
-	/*preemptability*/0u, /*schedule requested */0u},
-
-	{/*SP*/0u, /*basic SP*/0u , /*task pointer*/OsTask_TaskB, 
-	/*task state*/SUSPENDED, /*DeadBeefLoc*/NULL, /*priority*/11, /*task model*/BASIC,
-	/*set events*/0u, /*wait events*/0u, /*res occupation*/0u, 
-	/*preemptability*/1u, /*schedule requested */0u},
-
-	{/*SP*/0u, /*basic SP*/0u , /*task pointer*/OsTask_TaskC, 
-	/*task state*/SUSPENDED, /*DeadBeefLoc*/NULL, /*priority*/12, /*task model*/BASIC,
-	/*set events*/0u, /*wait events*/0u, /*res occupation*/0u, 
-	/*preemptability*/1u, /*schedule requested */0u},
-
-	{0u, 0u, OsTask_IdleMechanism,     READY, NULL, 255u, BASIC, 0u, 0u,
-	 0u, 1u, 0u }
+	TaskA,
+	TaskB,
+	TaskC
 };
+/*******************************************************************************
+	Symbolic names for wait events for each thread
+*******************************************************************************/
+/*TaskAEvents*/
+/*TaskBEvents*/
+/*TaskCEvents*/
 
 /*******************************************************************************
-	Stack Size For Each Thread
+	Task Control Blocks Table
 *******************************************************************************/
-const uint32_t OsCfg_StackSize[3] = 
-{
-	50,		/*TaskA_NonPreemptive*/
-	50,		/*TaskB*/
-	50		/*TaskC*/
-};
+extern tcb_t OsCfg_TCBs[3+1/*for Idle mechanism */]; 
 
 /*******************************************************************************
-	Stack Buffer Allocation For All Threads
+	Alarm control blocks table
 *******************************************************************************/
-uint32_t OsCfg_Stack[150+16/* 16 for Idle mechanism */] = {0u};
+extern acb_t OsCfg_Alarms[1]; /*Not used*/
 
-acb_t OsCfg_Alarms[1];/*Not used*/
 /*******************************************************************************
-	Resource task authorization
+	Stack size for each thread
 *******************************************************************************/
-const uint8_t OsCfg_ResourceTaskAuthorized[1][1]; /*Not used*/
+extern const uint32_t OsCfg_StackSize[3];
+
 /*******************************************************************************
-	Ceiling priority for system resources
+	Stack Buffer For All Threads
 *******************************************************************************/
-const uint8_t OsCfg_ResourceCeilPri[1]; /*Not used*/
+extern uint32_t OsCfg_Stack[150+16/* 16 for Idle mechanism */]; 
+
 /*******************************************************************************
-	Error Code task buffer
+	Rosource task authorization
 *******************************************************************************/
-StatusType SVCCnxt_ErrCodes[3/*OsCfg_MAX_NUM_OF_TASKS*/] = {E_OK};
+extern const uint8_t OsCfg_ResourceTaskAuthorized[1][1]; /*Not used*/
+
+/*******************************************************************************
+	Ceiling priority for sysytem resources
+*******************************************************************************/
+extern const uint8_t OsCfg_ResourceCeilPri[1];/*Not used.*/
+/*******************************************************************************
+	Error code task buffer
+*******************************************************************************/
+extern StatusType SVCCnxt_ErrCodes[3/*OsCfg_MAX_NUM_OF_TASKS*/];
 /*******************************************************************************
 	SVC resource context
 *******************************************************************************/
-ResourceType SVCCnxt_ResMgrCnxt[1];/*Not used*/
+extern ResourceType SVCCnxt_ResMgrCnxt[1];/*Not used*/
 /*******************************************************************************
 	Resource control block table
 *******************************************************************************/
-RCB_t RCB[1]; /*Not used*/
+extern RCB_t RCB[1];/*Not used*/
+#endif

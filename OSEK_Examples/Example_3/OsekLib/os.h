@@ -11,9 +11,9 @@
 
 #ifndef OS_H_
 #define OS_H_
-#include "../../OsCfg.h"
+#include "../OsCfg.h"
 #include "OsTypes.h"
-//#include "D:/courses/Embedded Systems/Udemy Courses STM32/Introduction to OSEK OS Part_1/Introduction-to-OSEK-RTOS-Part-1-WorkSpace/OSEK_Examples/Example_3/OsCfg.h"
+
 
 #define ALARMCALLBACK(CB_NAME)  void CB_NAME(void)
 /* Interrupts processing services */

@@ -12,32 +12,25 @@ CPU CORTEX-M4 {
 				USERESSCHEDULER = FALSE;
 				SYSTEMTICKMS = 10
         };
-        TASK Task_ReadDoorStatus {
+        TASK TaskA {
                 PRIORITY = 10;
                 SCHEDULE = FULL;
                 ACTIVATION = 1;
                 AUTOSTART = TRUE 
                 STACKSIZE = 50;
         };
-        TASK Task_OpenAlarm {
+        TASK TaskB {
                 PRIORITY = 11;
                 SCHEDULE = FULL;
                 ACTIVATION = 1;
                 AUTOSTART = FALSE 
                 STACKSIZE = 50;
-        };		 
-		  TASK Task_CloseAlarm {
-		  			PRIORITY = 11; 
-		  			SCHEDULE = FULL; 
-		  			ACTIVATION = 1; 
-		  			AUTOSTART = FALSE 
-		  			STACKSIZE = 50; 
-		  };		
-        TASK Task_Init {
-		  			PRIORITY = 14; 
-		  			SCHEDULE = FULL; 
-		  			ACTIVATION = 1; 
-		  			AUTOSTART = TRUE;  
-		  			STACKSIZE = 50; 
-		  };      
-}
+      };		 
+		TASK TaskC {
+					PRIORITY = 12; 
+					SCHEDULE = FULL; 
+					ACTIVATION = 1; 
+					AUTOSTART = FALSE 
+					STACKSIZE = 50; 
+		};
+};
