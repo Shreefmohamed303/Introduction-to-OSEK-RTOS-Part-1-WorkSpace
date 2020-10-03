@@ -16,7 +16,7 @@ CPU CORTEX-M4 {
                 PRIORITY = 10;
                 SCHEDULE = FULL;
                 ACTIVATION = 1;
-                AUTOSTART = TRUE {APPMODE = AppMode1;};
+                AUTOSTART = TRUE 
                 STACKSIZE = 50;
                 RESOURCE = SharedRes; 
         };
@@ -24,7 +24,7 @@ CPU CORTEX-M4 {
                 PRIORITY = 11;
                 SCHEDULE = FULL;
                 ACTIVATION = 1;
-                AUTOSTART = FALSE {APPMODE = AppMode1;};
+                AUTOSTART = FALSE 
                 STACKSIZE = 50;
                 RESOURCE = SharedRes; 
       };		 
